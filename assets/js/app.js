@@ -92,18 +92,28 @@ class MultiLLMApp {
             modelSelect1: document.getElementById("model-select-1"),
             modelSelect2: document.getElementById("model-select-2"),
             modelSelect3: document.getElementById("model-select-3"),
+            modelSelect4: document.getElementById("model-select-4"),
+            modelSelect5: document.getElementById("model-select-5"),
             modelResponse1: document.getElementById("model-response-1"),
             modelResponse2: document.getElementById("model-response-2"),
             modelResponse3: document.getElementById("model-response-3"),
+            modelResponse4: document.getElementById("model-response-4"),
+            modelResponse5: document.getElementById("model-response-5"),
             modelStatus1: document.getElementById("model-status-1"),
             modelStatus2: document.getElementById("model-status-2"),
             modelStatus3: document.getElementById("model-status-3"),
+            modelStatus4: document.getElementById("model-status-4"),
+            modelStatus5: document.getElementById("model-status-5"),
             modelTokens1: document.getElementById("model-tokens-1"),
             modelTokens2: document.getElementById("model-tokens-2"),
             modelTokens3: document.getElementById("model-tokens-3"),
+            modelTokens4: document.getElementById("model-tokens-4"),
+            modelTokens5: document.getElementById("model-tokens-5"),
             modelTime1: document.getElementById("model-time-1"),
             modelTime2: document.getElementById("model-time-2"),
             modelTime3: document.getElementById("model-time-3"),
+            modelTime4: document.getElementById("model-time-4"),
+            modelTime5: document.getElementById("model-time-5"),
             
             // Input area
             messageInput: document.getElementById("message-input"),
@@ -329,7 +339,7 @@ class MultiLLMApp {
         this.elements.saveConversationCheckbox.addEventListener("change", (e) => this.config.autoSave = e.target.checked);
 
         // Model selects
-        [this.elements.primaryModelSelect, this.elements.modelSelect1, this.elements.modelSelect2, this.elements.modelSelect3].forEach(select => {
+        [this.elements.primaryModelSelect, this.elements.modelSelect1, this.elements.modelSelect2, this.elements.modelSelect3, this.elements.modelSelect4, this.elements.modelSelect5].forEach(select => {
             if (select) {
                 select.addEventListener("change", (e) => this.handleModelSelection(e.target.id, e.target.value));
             }
@@ -1162,6 +1172,44 @@ function showTab(tabId) {
     const tabButton = document.querySelector(`.tab-btn[onclick*="${tabId}"]`);
     if (tabButton) {
         tabButton.classList.add("active");
+    }
+}
+
+// Global functions for model window controls (for all 5 windows)
+function copyModelResponse(windowIndex) {
+    const responseElement = document.getElementById(`model-response-${windowIndex}`);
+    if (responseElement && responseElement.textContent.trim()) {
+        navigator.clipboard.writeText(responseElement.textContent).then(() => {
+            app.showNotification(`Respuesta del modelo ${windowIndex} copiada`, "success");
+        });
+    }
+}
+
+function speakModelResponse(windowIndex) {
+    const responseElement = document.getElementById(`model-response-${windowIndex}`);
+    if (responseElement && responseElement.textContent.trim()) {
+        app.audioManager.speak(responseElement.textContent);
+    }
+}
+
+function toggleModel(windowIndex) {
+    const selectElement = document.getElementById(`model-select-${windowIndex}`);
+    const statusElement = document.getElementById(`model-status-${windowIndex}`);
+    
+    if (selectElement && selectElement.value) {
+        // Toggle between active and inactive
+        const isActive = statusElement.classList.contains('active');
+        if (isActive) {
+            statusElement.classList.remove('active');
+            statusElement.textContent = 'Inactivo';
+            app.showNotification(`Modelo ${windowIndex} desactivado`, "info");
+        } else {
+            statusElement.classList.add('active');
+            statusElement.textContent = 'Activo';
+            app.showNotification(`Modelo ${windowIndex} activado`, "success");
+        }
+    } else {
+        app.showNotification(`Selecciona un modelo primero`, "warning");
     }
 }
 

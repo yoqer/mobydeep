@@ -466,9 +466,34 @@ body {
 
 .model-responses-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
     margin-bottom: 20px;
+}
+
+/* Responsive adjustments for 5 windows */
+@media (min-width: 1400px) {
+    .model-responses-container {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+@media (max-width: 1399px) and (min-width: 1100px) {
+    .model-responses-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 1099px) and (min-width: 800px) {
+    .model-responses-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 799px) {
+    .model-responses-container {
+        grid-template-columns: 1fr;
+    }
 }
 
 .model-response-window {

@@ -43,6 +43,9 @@ class LLMClient {
             case 'meta':
             case 'nvidia':
             case 'mistral':
+            case 'qwen':
+            case 'amazon-nova':
+            case 'mai':
             case 'custom-openai-compatible': // For custom LLMs that follow OpenAI API
                 headers['Authorization'] = `Bearer ${this.apiKey}`;
                 endpoint = `${this.provider.apiUrl}/chat/completions`;
@@ -141,6 +144,9 @@ class LLMClient {
                 case 'meta':
                 case 'nvidia':
                 case 'mistral':
+                case 'qwen':
+                case 'amazon-nova':
+                case 'mai':
                 case 'custom-openai-compatible':
                 case 'custom-kimi':
                     content = data.choices[0].message.content;
@@ -286,6 +292,29 @@ const MODEL_DEFINITIONS = {
         apiUrl: 'https://api.kimi.com/v1',
         models: [
             { id: 'kimi-chat', display_name: 'Kimi Chat', max_tokens: 4096, context_window: 128000, cost_per_token: 0.000001, capabilities: ['chat'] },
+        ]
+    },
+    'qwen': {
+        name: 'Qwen',
+        apiUrl: 'https://dashscope.aliyuncs.com/api/v1',
+        models: [
+            { id: 'qwen-turbo', display_name: 'Qwen Turbo', max_tokens: 4096, context_window: 65536, cost_per_token: 0.0000005, capabilities: ['chat'] },
+            { id: 'qwen-plus', display_name: 'Qwen Plus', max_tokens: 4096, context_window: 65536, cost_per_token: 0.000002, capabilities: ['chat'] },
+            { id: 'qwen-max', display_name: 'Qwen Max', max_tokens: 4096, context_window: 65536, cost_per_token: 0.000004, capabilities: ['chat'] },
+        ]
+    },
+    'amazon-nova': {
+        name: 'Amazon Nova',
+        apiUrl: 'https://lmarena.com/api/v1',
+        models: [
+            { id: 'amazon-nova-experimental-chat-05-14', display_name: 'Amazon Nova Experimental Chat 05-14', max_tokens: 4096, context_window: 128000, cost_per_token: 0.000005, capabilities: ['chat'] },
+        ]
+    },
+    'mai': {
+        name: 'MAI',
+        apiUrl: 'https://lmarena.com/api/v1',
+        models: [
+            { id: 'mai-1-preview', display_name: 'MAI-1-PREVIEW', max_tokens: 4096, context_window: 128000, cost_per_token: 0.000005, capabilities: ['chat'] },
         ]
     },
 };
