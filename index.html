@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-LLM Platform - Static Edition</title>
+    <meta name="description" content="Plataforma avanzada para integrar múltiples modelos de lenguaje con frontend estático">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h3>Cargando Multi-LLM Platform</h3>
+            <p>Inicializando conexiones...</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <button id="sidebar-toggle" class="sidebar-toggle" title="Toggle Sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">
+                <i class="fas fa-robot"></i>
+                <span>Multi-LLM Platform</span>
+            </div>
+        </div>
+        
+        <div class="header-center">
+            <div class="model-selector">
+                <select id="primary-model-select" class="model-select">
+                    <option value="">Seleccionar modelo principal...</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="header-right">
+            <button id="settings-button" class="header-button" title="Configuración">
+                <i class="fas fa-cog"></i>
+            </button>
+            <button id="theme-toggle" class="header-button" title="Cambiar tema">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button id="user-menu" class="header-button" title="Usuario">
+                <i class="fas fa-user"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-section">
+                <h3><i class="fas fa-comments"></i> Conversaciones</h3>
+                <button id="new-conversation" class="new-conversation-btn">
+                    <i class="fas fa-plus"></i> Nueva Conversación
+                </button>
+                <div class="search-box">
+                    <input type="text" id="search-conversations" placeholder="Buscar conversaciones...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div id="conversations-list" class="conversations-list">
+                    <!-- Conversaciones se cargarán aquí -->
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3><i class="fas fa-robot"></i> Modelos Activos</h3>
+                <div id="active-models" class="active-models">
+                    <!-- Modelos activos se mostrarán aquí -->
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3><i class="fas fa-chart-bar"></i> Estadísticas</h3>
+                <div id="stats-panel" class="stats-panel">
+                    <div class="stat-item">
+                        <span class="stat-label">Conversaciones:</span>
+                        <span id="stat-conversations" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Mensajes:</span>
+                        <span id="stat-messages" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Tokens usados:</span>
+                        <span id="stat-tokens" class="stat-value">0</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Content Area -->
+        <main class="content-area">
+            <!-- Main Response Window -->
+            <div class="main-response-container">
+                <div class="response-header">
+                    <h2><i class="fas fa-brain"></i> Respuesta Principal</h2>
+                    <div class="response-controls">
+                        <button id="copy-main-response" class="control-btn" title="Copiar respuesta">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <button id="speak-main-response" class="control-btn" title="Leer en voz alta">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                        <button id="save-main-response" class="control-btn" title="Guardar respuesta">
+                            <i class="fas fa-save"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="main-response" class="main-response">
+                    <div class="welcome-message">
+                        <div class="welcome-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3>¡Bienvenido a Multi-LLM Platform!</h3>
+                        <p>Conecta con múltiples modelos de lenguaje y obtén respuestas comparativas en tiempo real.</p>
+                        <div class="welcome-features">
+                            <div class="feature-item">
+                                <i class="fas fa-brain"></i>
+                                <span>Múltiples LLMs</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-database"></i>
+                                <span>Almacenamiento Local</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Análisis comparativo</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-cloud"></i>
+                                <span>Frontend Estático</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Three Model Response Windows -->
+            <div class="model-responses-container">
+                <div class="model-response-window" id="model-window-1">
+                    <div class="model-header">
+                        <div class="model-info">
+                            <select id="model-select-1" class="model-select-small">
+                                <option value="">Seleccionar modelo 1...</option>
+                            </select>
+                            <span id="model-status-1" class="model-status">Inactivo</span>
+                        </div>
+                        <div class="model-controls">
+                            <button class="model-control-btn" onclick="app.copyModelResponse(1)" title="Copiar">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <button class="model-control-btn" onclick="app.speakModelResponse(1)" title="Leer">
+                                <i class="fas fa-volume-up"></i>
+                            </button>
+                            <button class="model-control-btn" onclick="app.toggleModel(1)" title="Activar/Desactivar">
+                                <i class="fas fa-power-off"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="model-response-1" class="model-response">
+                        <div class="empty-state">
+                            <i class="fas fa-robot"></i>
+                            <p>Selecciona un modelo para ver respuestas</p>
+                        </div>
+                    </div>
+                    <div class="model-footer">
+                        <div class="model-stats">
+                            <span id="model-tokens-1" class="stat">0 tokens</span>
+                            <span id="model-time-1" class="stat">0ms</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="model-response-window" id="model-window-2">
+                    <div class="model-header">
+                        <div class="model-info">
+                            <select id="model-select-2" class="model-select-small">
+                                <option value="">Seleccionar modelo 2...</option>
+                            </select>
+                            <span id="model-status-2" class="model-status">Inactivo</span>
+                        </div>
+                        <div class="model-controls">
+                            <button class="model-control-btn" onclick="app.copyModelResponse(2)" title="Copiar">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <button class="model-control-btn" onclick="app.speakModelResponse(2)" title="Leer">
+                                <i class="fas fa-volume-up"></i>
+                            </button>
+                            <button class="model-control-btn" onclick="app.toggleModel(2)" title="Activar/Desactivar">
+                                <i class="fas fa-power-off"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="model-response-2" class="model-response">
+                        <div class="empty-state">
+                            <i class="fas fa-robot"></i>
+                            <p>Selecciona un modelo para ver respuestas</p>
+                        </div>
+                    </div>
+                    <div class="model-footer">
+                        <div class="model-stats">
+                            <span id="model-tokens-2" class="stat">0 tokens</span>
+                            <span id="model-time-2" class="stat">0ms</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="model-response-window" id="model-window-3">
+                    <div class="model-header">
+                        <div class="model-info">
+                            <select id="model-select-3" class="model-select-small">
+                                <option value="">Seleccionar modelo 3...</option>
+                            </select>
+                            <span id="model-status-3" class="model-status">Inactivo</span>
+                        </div>
+                        <div class="model-controls">
+                            <button class="model-control-btn" onclick="app.copyModelResponse(3)" title="Copiar">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <button class="model-control-btn" onclick="app.speakModelResponse(3)" title="Leer">
+                                <i class="fas fa-volume-up"></i>
+                            </button>
+                            <button class="model-control-btn" onclick="app.toggleModel(3)" title="Activar/Desactivar">
+                                <i class="fas fa-power-off"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="model-response-3" class="model-response">
+                        <div class="empty-state">
+                            <i class="fas fa-robot"></i>
+                            <p>Selecciona un modelo para ver respuestas</p>
+                        </div>
+                    </div>
+                    <div class="model-footer">
+                        <div class="model-stats">
+                            <span id="model-tokens-3" class="stat">0 tokens</span>
+                            <span id="model-time-3" class="stat">0ms</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-area">
+                <div class="input-container">
+                    <div class="input-wrapper">
+                        <textarea 
+                            id="message-input" 
+                            placeholder="Escribe tu mensaje aquí... (Shift+Enter para nueva línea)"
+                            rows="3"
+                        ></textarea>
+                        <div class="input-actions">
+                            <button id="attach-file" class="input-action-btn" title="Adjuntar archivo">
+                                <i class="fas fa-paperclip"></i>
+                            </button>
+                            <button id="voice-input" class="input-action-btn" title="Entrada de voz">
+                                <i class="fas fa-microphone"></i>
+                            </button>
+                            <button id="send-message" class="send-btn" title="Enviar mensaje">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="input-info">
+                        <div class="input-stats">
+                            <span id="char-count">0</span> caracteres
+                            <span id="word-count">0</span> palabras
+                        </div>
+                        <div class="input-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="auto-speak" checked>
+                                <span>Auto-reproducir respuestas</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="save-conversation" checked>
+                                <span>Guardar conversación</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-cog"></i> Configuración</h2>
+                <button class="modal-close" onclick="closeModal(\'settings-modal\')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-tabs">
+                    <button class="tab-btn active" onclick="showTab(\'api-settings\')">APIs</button>
+                    <button class="tab-btn" onclick="showTab(\'model-settings\')">Modelos</button>
+                    <button class="tab-btn" onclick="showTab(\'general-settings\')">General</button>
+                    <button class="tab-btn" onclick="showTab(\'custom-llm-settings\')">LLMs Personalizados</button>
+                </div>
+                
+                <div id="api-settings" class="tab-content active">
+                    <h3>Configuración de APIs</h3>
+                    <p class="settings-description">Configura las claves API para cada proveedor y modelo individual.</p>
+                    
+                    <!-- Configuración por Proveedor -->
+                    <div class="settings-section">
+                        <h4><i class="fas fa-key"></i> Claves API por Proveedor</h4>
+                        <div id="provider-api-keys">
+                            <!-- Provider API keys will be generated here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Configuración por Modelo Individual -->
+                    <div class="settings-section">
+                        <h4><i class="fas fa-robot"></i> Claves API por Modelo Individual</h4>
+                        <p class="settings-note">
+                            <i class="fas fa-info-circle"></i>
+                            Las claves API por modelo tienen prioridad sobre las claves del proveedor.
+                        </p>
+                        <div id="model-api-keys">
+                            <!-- Model-specific API keys will be generated here -->
+                        </div>
+                    </div>
+                    
+                    <div class="settings-actions">
+                        <button id="test-all-connections" class="btn btn-secondary">
+                            <i class="fas fa-plug"></i> Probar Todas las Conexiones
+                        </button>
+                        <button id="save-api-settings" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Guardar Configuración
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="model-settings" class="tab-content">
+                    <h3>Configuración de Modelos</h3>
+                    <div id="models-config">
+                        <!-- Models configuration will be loaded here -->
+                    </div>
+                </div>
+                
+                <div id="general-settings" class="tab-content">
+                    <h3>Configuración General</h3>
+                    <div class="form-group">
+                        <label for="context-window-size">Tamaño de Ventana de Contexto (tokens):</label>
+                        <input type="number" id="context-window-size" class="form-control" value="8192" min="1024" step="1024">
+                    </div>
+                    <div class="form-group">
+                        <label for="temperature-setting">Temperatura (Creatividad):</label>
+                        <input type="range" id="temperature-setting" class="form-range" min="0" max="2" step="0.1" value="0.7">
+                        <span id="temperature-value">0.7</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="max-tokens-setting">Máx. Tokens de Respuesta:</label>
+                        <input type="number" id="max-tokens-setting" class="form-control" value="4096" min="128" step="128">
+                    </div>
+                    <div class="form-group">
+                        <label for="auto-save-setting" class="checkbox-label">
+                            <input type="checkbox" id="auto-save-setting" checked>
+                            <span>Guardar conversaciones automáticamente</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="auto-speak-setting" class="checkbox-label">
+                            <input type="checkbox" id="auto-speak-setting">
+                            <span>Reproducir respuestas automáticamente</span>
+                        </label>
+                    </div>
+                    <button id="save-general-settings" class="btn btn-primary"><i class="fas fa-save"></i> Guardar Configuración General</button>
+                </div>
+
+                <div id="custom-llm-settings" class="tab-content">
+                    <h3>LLMs Personalizados</h3>
+                    <p class="settings-description">Añade tus propios modelos LLM personalizados para integrarlos en la plataforma.</p>
+                    <div id="custom-llm-list">
+                        <!-- Custom LLMs will be listed here -->
+                    </div>
+                    <div class="custom-llm-form">
+                        <h4>Añadir Nuevo LLM Personalizado</h4>
+                        <div class="form-group">
+                            <label for="custom-llm-id">ID Único (ej: my-custom-llm):</label>
+                            <input type="text" id="custom-llm-id" class="form-control" placeholder="ID único para el modelo">
+                        </div>
+                        <div class="form-group">
+                            <label for="custom-llm-name">Nombre a Mostrar (ej: Mi Modelo Personalizado):</label>
+                            <input type="text" id="custom-llm-name" class="form-control" placeholder="Nombre visible en la interfaz">
+                        </div>
+                        <div class="form-group">
+                            <label for="custom-llm-provider">Proveedor (ej: openai, google, custom):</label>
+                            <input type="text" id="custom-llm-provider" class="form-control" placeholder="ID del proveedor (ej: openai)">
+                        </div>
+                        <div class="form-group">
+                            <label for="custom-llm-api-url">URL de la API (ej: https://api.openai.com/v1):</label>
+                            <input type="url" id="custom-llm-api-url" class="form-control" placeholder="URL base de la API">
+                        </div>
+                        <div class="form-group">
+                            <label for="custom-llm-api-key">Clave API (opcional):</label>
+                            <input type="password" id="custom-llm-api-key" class="form-control" placeholder="Clave API específica para este modelo">
+                        </div>
+                        <div class="form-group">
+                            <label for="custom-llm-max-tokens">Máx. Tokens:</label>
+                            <input type="number" id="custom-llm-max-tokens" class="form-control" value="4096" min="128">
+                        </div>
+                        <div class="form-group">
+                            <label for="custom-llm-context-window">Ventana de Contexto:</label>
+                            <input type="number" id="custom-llm-context-window" class="form-control" value="8192" min="128">
+                        </div>
+                        <div class="form-group">
+                            <label for="custom-llm-cost">Costo por Token (ej: 0.0000005):</label>
+                            <input type="number" id="custom-llm-cost" class="form-control" value="0" step="0.0000001">
+                        </div>
+                        <div class="form-group">
+                            <label for="custom-llm-capabilities">Capacidades (separadas por coma, ej: chat,completion):</label>
+                            <input type="text" id="custom-llm-capabilities" class="form-control" value="chat,completion">
+                        </div>
+                        <button id="add-custom-llm" class="btn btn-primary"><i class="fas fa-plus"></i> Añadir LLM Personalizado</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal(\'settings-modal\')">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- File Modal -->
+    <div id="file-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-folder-open"></i> Explorador de Archivos</h2>
+                <button class="modal-close" onclick="closeModal(\'file-modal\')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="file-browser-content">
+                    <!-- File browser content will be loaded here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeModal(\'file-modal\')">Seleccionar</button>
+                <button class="btn btn-secondary" onclick="closeModal(\'file-modal\')">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notification-container" class="notification-container"></div>
+
+    <!-- JavaScript -->
+    <script src="assets/js/storage.js"></script>
+    <script src="assets/js/llm-providers.js"></script>
+    <script src="assets/js/audio-manager.js"></script>
+    <script src="assets/js/translator.js"></script>
+    <script src="assets/js/file-manager.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
+
