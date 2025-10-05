@@ -43,9 +43,15 @@ class LLMClient {
             case 'meta':
             case 'nvidia':
             case 'mistral':
+            case 'perplexity':
+            case 'minimax':
             case 'custom-openai-compatible': // For custom LLMs that follow OpenAI API
                 headers['Authorization'] = `Bearer ${this.apiKey}`;
-                endpoint = `${this.provider.apiUrl}/chat/completions`;
+                if (this.provider.id === 'minimax') {
+                    endpoint = this.provider.apiUrl; // Minimax uses full URL already
+                } else {
+                    endpoint = `${this.provider.apiUrl}/chat/completions`;
+                }
                 requestBody = {
                     model: this.model.id,
                     messages: messages,
@@ -101,7 +107,11 @@ class LLMClient {
 
             case 'custom-kimi': // For kimi.com
                 headers['Authorization'] = `Bearer ${this.apiKey}`;
-                endpoint = `${this.provider.apiUrl}/chat/completions`;
+                if (this.provider.id === 'minimax') {
+                    endpoint = this.provider.apiUrl; // Minimax uses full URL already
+                } else {
+                    endpoint = `${this.provider.apiUrl}/chat/completions`;
+                }
                 requestBody = {
                     model: this.model.id,
                     messages: messages,
@@ -141,6 +151,8 @@ class LLMClient {
                 case 'meta':
                 case 'nvidia':
                 case 'mistral':
+                case 'perplexity':
+                case 'minimax':
                 case 'custom-openai-compatible':
                 case 'custom-kimi':
                     content = data.choices[0].message.content;
@@ -271,6 +283,23 @@ const MODEL_DEFINITIONS = {
             { id: 'mistral-small-latest', display_name: 'Mistral Small', max_tokens: 4096, context_window: 32768, cost_per_token: 0.0000007, capabilities: ['chat'] },
             { id: 'open-mixtral-8x7b', display_name: 'Open Mixtral 8x7B', max_tokens: 4096, context_window: 32768, cost_per_token: 0.00000025, capabilities: ['chat'] },
             { id: 'open-mixtral-8x22b', display_name: 'Open Mixtral 8x22B', max_tokens: 4096, context_window: 65536, cost_per_token: 0.0000009, capabilities: ['chat'] },
+        ]
+    },
+    'perplexity': {
+        name: 'Perplexity',
+        apiUrl: 'https://api.perplexity.ai/chat/completions',
+        models: [
+            { id: 'sonar', display_name: 'Sonar', max_tokens: 4096, context_window: 128000, cost_per_token: 0.000001, capabilities: ['chat', 'web_search'] },
+            { id: 'sonar-pro', display_name: 'Sonar Pro', max_tokens: 4096, context_window: 128000, cost_per_token: 0.000003, capabilities: ['chat', 'web_search'] },
+            { id: 'sonar-reasoning', display_name: 'Sonar Reasoning', max_tokens: 4096, context_window: 128000, cost_per_token: 0.000005, capabilities: ['chat', 'web_search', 'reasoning'] },
+        ]
+    },
+    'minimax': {
+        name: 'Minimax',
+        apiUrl: 'https://api.minimax.io/v1/text/chatcompletion_v2',
+        models: [
+            { id: 'MiniMax-M1', display_name: 'MiniMax M1', max_tokens: 8192, context_window: 1000192, cost_per_token: 0.000002, capabilities: ['chat', 'reasoning'] },
+            { id: 'MiniMax-Text-01', display_name: 'MiniMax Text 01', max_tokens: 2048, context_window: 1000192, cost_per_token: 0.000001, capabilities: ['chat'] },
         ]
     },
     // Custom LLMs
