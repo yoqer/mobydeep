@@ -6,7 +6,7 @@ class MultiLLMApp {
             requestTimeout: 30000,
             autoSave: true,
             autoSpeak: false,
-            contextWindowSize: 8192,
+            contextWindowSize: 10000000, // 10 million tokens
             temperature: 0.7,
             maxResponseTokens: 4096,
         };
@@ -26,6 +26,8 @@ class MultiLLMApp {
         this.audioManager = new AudioManager(this);
         this.fileManager = new FileManager(this);
         this.translator = new Translator(this);
+        this.attachmentManager = new AttachmentManager(this);
+        this.personalityManager = new PersonalityManager();
         
         this.init();
     }
@@ -38,6 +40,7 @@ class MultiLLMApp {
             await this.loadInitialData();
             this.setupEventListeners();
             this.initializeSpeech();
+            this.personalityManager.init();
             this.hideLoading();
             
             this.showNotification("Aplicación inicializada correctamente", "success");
@@ -790,6 +793,55 @@ class MultiLLMApp {
 
     removeCustomLLM(id) {
         // Implementation for removing custom LLM
+    }
+
+    // Window Expansion Functions
+    expandWindow(windowIndex) {
+        // Close any currently expanded window
+        this.closeExpandedWindow();
+        
+        const window = document.getElementById(`model-window-${windowIndex}`);
+        const overlay = document.getElementById('modal-overlay');
+        
+        if (window && overlay) {
+            window.classList.add('expanded');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Focus on the expanded window for keyboard navigation
+            window.setAttribute('tabindex', '0');
+            window.focus();
+            
+            // Add escape key listener
+            this.escapeKeyListener = (e) => {
+                if (e.key === 'Escape') {
+                    this.closeExpandedWindow();
+                }
+            };
+            document.addEventListener('keydown', this.escapeKeyListener);
+        }
+    }
+
+    closeExpandedWindow() {
+        const expandedWindow = document.querySelector('.model-response-window.expanded');
+        const overlay = document.getElementById('modal-overlay');
+        
+        if (expandedWindow) {
+            expandedWindow.classList.remove('expanded');
+            expandedWindow.removeAttribute('tabindex');
+        }
+        
+        if (overlay) {
+            overlay.classList.remove('active');
+        }
+        
+        document.body.style.overflow = 'auto';
+        
+        // Remove escape key listener
+        if (this.escapeKeyListener) {
+            document.removeEventListener('keydown', this.escapeKeyListener);
+            this.escapeKeyListener = null;
+        }
     }
 }
 

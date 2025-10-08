@@ -1,0 +1,227 @@
+/* Attachments Area Styles */
+.attachments-area {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    margin-bottom: 15px;
+    padding: 15px;
+    transition: all 0.3s ease;
+}
+
+.attachments-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.attachments-header h4 {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.attachments-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.attachment-item {
+    display: flex;
+    align-items: center;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    color: var(--text-color);
+    max-width: 200px;
+    position: relative;
+}
+
+.attachment-item.image {
+    border-color: var(--success-color);
+}
+
+.attachment-item.file {
+    border-color: var(--primary-color);
+}
+
+.attachment-item.link {
+    border-color: var(--warning-color);
+}
+
+.attachment-icon {
+    margin-right: 8px;
+    font-size: 1rem;
+}
+
+.attachment-item.image .attachment-icon {
+    color: var(--success-color);
+}
+
+.attachment-item.file .attachment-icon {
+    color: var(--primary-color);
+}
+
+.attachment-item.link .attachment-icon {
+    color: var(--warning-color);
+}
+
+.attachment-name {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 8px;
+}
+
+.attachment-remove {
+    background: none;
+    border: none;
+    color: var(--error-color);
+    cursor: pointer;
+    padding: 2px;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.attachment-remove:hover {
+    background-color: var(--error-color);
+    color: white;
+}
+
+.attachment-size {
+    font-size: 0.75rem;
+    color: var(--text-light-color);
+    margin-left: 5px;
+}
+
+/* Image Preview */
+.attachment-preview {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 8px;
+}
+
+/* Link Preview */
+.link-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.link-title {
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+.link-url {
+    font-size: 0.7rem;
+    color: var(--text-light-color);
+    text-decoration: none;
+}
+
+.link-url:hover {
+    color: var(--primary-color);
+}
+
+/* Drag and Drop Styles */
+.input-wrapper.drag-over {
+    border: 2px dashed var(--primary-color);
+    background-color: rgba(var(--primary-color-rgb), 0.1);
+}
+
+.drag-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(var(--primary-color-rgb), 0.2);
+    border: 2px dashed var(--primary-color);
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    font-weight: 500;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* File Input Hidden */
+.file-input-hidden {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .attachments-area {
+        padding: 10px;
+    }
+    
+    .attachment-item {
+        max-width: 150px;
+        padding: 6px 8px;
+        font-size: 0.8rem;
+    }
+    
+    .attachment-preview {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .attachments-header h4 {
+        font-size: 0.85rem;
+    }
+}
+
+/* Context Window Size Display */
+.context-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.8rem;
+    color: var(--text-light-color);
+    margin-top: 5px;
+}
+
+.context-bar {
+    flex-grow: 1;
+    height: 4px;
+    background-color: var(--border-color);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.context-fill {
+    height: 100%;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.context-fill.warning {
+    background-color: var(--warning-color);
+}
+
+.context-fill.danger {
+    background-color: var(--error-color);
+}

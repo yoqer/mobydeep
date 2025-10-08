@@ -492,6 +492,33 @@ body {
     box-shadow: 0 2px 4px var(--shadow-color);
     display: flex;
     flex-direction: column;
+    min-height: 300px;
+    max-height: 600px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.model-response-window:hover {
+    box-shadow: 0 4px 8px var(--shadow-color);
+    transform: translateY(-2px);
+}
+
+.model-response-window.expanded {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    height: 90vh;
+    max-width: 1200px;
+    max-height: 800px;
+    z-index: 1000;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.model-response-window.expanded .model-response {
+    max-height: calc(100% - 120px);
 }
 
 .model-header {
@@ -569,11 +596,33 @@ body {
     flex-grow: 1;
     padding: 15px;
     overflow-y: auto;
+    overflow-x: hidden;
     font-size: 0.9rem;
     color: var(--text-color);
     background-color: var(--background-color);
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
+    line-height: 1.6;
+    word-wrap: break-word;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) var(--background-color);
+}
+
+.model-response::-webkit-scrollbar {
+    width: 6px;
+}
+
+.model-response::-webkit-scrollbar-track {
+    background: var(--background-color);
+}
+
+.model-response::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 3px;
+}
+
+.model-response::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
 }
 
 .model-footer {

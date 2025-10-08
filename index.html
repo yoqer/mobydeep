@@ -11,6 +11,8 @@
     
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/modal-overlay.css">
+    <link rel="stylesheet" href="assets/css/attachments.css">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -156,23 +158,37 @@
 
             <!-- Six Model Response Windows -->
             <div class="model-responses-container">
-                <div class="model-response-window" id="model-window-1">
+                <div class="model-response-window" id="model-window-1" onclick="app.expandWindow(1)">
+                    <div class="expanded-controls">
+                        <button class="expanded-control-btn" onclick="event.stopPropagation(); app.copyModelResponse(1)" title="Copiar">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <button class="expanded-control-btn" onclick="event.stopPropagation(); app.speakModelResponse(1)" title="Leer">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                        <button class="expanded-control-btn close-btn" onclick="event.stopPropagation(); app.closeExpandedWindow()" title="Cerrar">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                     <div class="model-header">
                         <div class="model-info">
-                            <select id="model-select-1" class="model-select-small">
+                            <select id="model-select-1" class="model-select-small" onclick="event.stopPropagation()">
                                 <option value="">Seleccionar modelo 1...</option>
                             </select>
                             <span id="model-status-1" class="model-status">Inactivo</span>
                         </div>
                         <div class="model-controls">
-                            <button class="model-control-btn" onclick="app.copyModelResponse(1)" title="Copiar">
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.copyModelResponse(1)" title="Copiar">
                                 <i class="fas fa-copy"></i>
                             </button>
-                            <button class="model-control-btn" onclick="app.speakModelResponse(1)" title="Leer">
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.speakModelResponse(1)" title="Leer">
                                 <i class="fas fa-volume-up"></i>
                             </button>
-                            <button class="model-control-btn" onclick="app.toggleModel(1)" title="Activar/Desactivar">
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.toggleModel(1)" title="Activar/Desactivar">
                                 <i class="fas fa-power-off"></i>
+                            </button>
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.expandWindow(1)" title="Expandir">
+                                <i class="fas fa-expand"></i>
                             </button>
                         </div>
                     </div>
@@ -190,23 +206,37 @@
                     </div>
                 </div>
 
-                <div class="model-response-window" id="model-window-2">
+                <div class="model-response-window" id="model-window-2" onclick="app.expandWindow(2)">
+                    <div class="expanded-controls">
+                        <button class="expanded-control-btn" onclick="event.stopPropagation(); app.copyModelResponse(2)" title="Copiar">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <button class="expanded-control-btn" onclick="event.stopPropagation(); app.speakModelResponse(2)" title="Leer">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                        <button class="expanded-control-btn close-btn" onclick="event.stopPropagation(); app.closeExpandedWindow()" title="Cerrar">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                     <div class="model-header">
                         <div class="model-info">
-                            <select id="model-select-2" class="model-select-small">
+                            <select id="model-select-2" class="model-select-small" onclick="event.stopPropagation()">
                                 <option value="">Seleccionar modelo 2...</option>
                             </select>
                             <span id="model-status-2" class="model-status">Inactivo</span>
                         </div>
                         <div class="model-controls">
-                            <button class="model-control-btn" onclick="app.copyModelResponse(2)" title="Copiar">
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.copyModelResponse(2)" title="Copiar">
                                 <i class="fas fa-copy"></i>
                             </button>
-                            <button class="model-control-btn" onclick="app.speakModelResponse(2)" title="Leer">
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.speakModelResponse(2)" title="Leer">
                                 <i class="fas fa-volume-up"></i>
                             </button>
-                            <button class="model-control-btn" onclick="app.toggleModel(2)" title="Activar/Desactivar">
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.toggleModel(2)" title="Activar/Desactivar">
                                 <i class="fas fa-power-off"></i>
+                            </button>
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.expandWindow(2)" title="Expandir">
+                                <i class="fas fa-expand"></i>
                             </button>
                         </div>
                     </div>
@@ -224,23 +254,37 @@
                     </div>
                 </div>
 
-                <div class="model-response-window" id="model-window-3">
+                <div class="model-response-window" id="model-window-3" onclick="app.expandWindow(3)">
+                    <div class="expanded-controls">
+                        <button class="expanded-control-btn" onclick="event.stopPropagation(); app.copyModelResponse(3)" title="Copiar">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <button class="expanded-control-btn" onclick="event.stopPropagation(); app.speakModelResponse(3)" title="Leer">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                        <button class="expanded-control-btn close-btn" onclick="event.stopPropagation(); app.closeExpandedWindow()" title="Cerrar">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                     <div class="model-header">
                         <div class="model-info">
-                            <select id="model-select-3" class="model-select-small">
+                            <select id="model-select-3" class="model-select-small" onclick="event.stopPropagation()">
                                 <option value="">Seleccionar modelo 3...</option>
                             </select>
                             <span id="model-status-3" class="model-status">Inactivo</span>
                         </div>
                         <div class="model-controls">
-                            <button class="model-control-btn" onclick="app.copyModelResponse(3)" title="Copiar">
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.copyModelResponse(3)" title="Copiar">
                                 <i class="fas fa-copy"></i>
                             </button>
-                            <button class="model-control-btn" onclick="app.speakModelResponse(3)" title="Leer">
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.speakModelResponse(3)" title="Leer">
                                 <i class="fas fa-volume-up"></i>
                             </button>
-                            <button class="model-control-btn" onclick="app.toggleModel(3)" title="Activar/Desactivar">
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.toggleModel(3)" title="Activar/Desactivar">
                                 <i class="fas fa-power-off"></i>
+                            </button>
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.expandWindow(3)" title="Expandir">
+                                <i class="fas fa-expand"></i>
                             </button>
                         </div>
                     </div>
@@ -258,23 +302,37 @@
                     </div>
                 </div>
 
-                <div class="model-response-window" id="model-window-4">
+                <div class="model-response-window" id="model-window-4" onclick="app.expandWindow(4)">
+                    <div class="expanded-controls">
+                        <button class="expanded-control-btn" onclick="event.stopPropagation(); app.copyModelResponse(4)" title="Copiar">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <button class="expanded-control-btn" onclick="event.stopPropagation(); app.speakModelResponse(4)" title="Leer">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                        <button class="expanded-control-btn close-btn" onclick="event.stopPropagation(); app.closeExpandedWindow()" title="Cerrar">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                     <div class="model-header">
                         <div class="model-info">
-                            <select id="model-select-4" class="model-select-small">
+                            <select id="model-select-4" class="model-select-small" onclick="event.stopPropagation()">
                                 <option value="">Seleccionar modelo 4...</option>
                             </select>
                             <span id="model-status-4" class="model-status">Inactivo</span>
                         </div>
                         <div class="model-controls">
-                            <button class="model-control-btn" onclick="app.copyModelResponse(4)" title="Copiar">
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.copyModelResponse(4)" title="Copiar">
                                 <i class="fas fa-copy"></i>
                             </button>
-                            <button class="model-control-btn" onclick="app.speakModelResponse(4)" title="Leer">
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.speakModelResponse(4)" title="Leer">
                                 <i class="fas fa-volume-up"></i>
                             </button>
-                            <button class="model-control-btn" onclick="app.toggleModel(4)" title="Activar/Desactivar">
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.toggleModel(4)" title="Activar/Desactivar">
                                 <i class="fas fa-power-off"></i>
+                            </button>
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.expandWindow(4)" title="Expandir">
+                                <i class="fas fa-expand"></i>
                             </button>
                         </div>
                     </div>
@@ -292,23 +350,37 @@
                     </div>
                 </div>
 
-                <div class="model-response-window" id="model-window-5">
+                <div class="model-response-window" id="model-window-5" onclick="app.expandWindow(5)">
+                    <div class="expanded-controls">
+                        <button class="expanded-control-btn" onclick="event.stopPropagation(); app.copyModelResponse(5)" title="Copiar">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <button class="expanded-control-btn" onclick="event.stopPropagation(); app.speakModelResponse(5)" title="Leer">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                        <button class="expanded-control-btn close-btn" onclick="event.stopPropagation(); app.closeExpandedWindow()" title="Cerrar">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                     <div class="model-header">
                         <div class="model-info">
-                            <select id="model-select-5" class="model-select-small">
+                            <select id="model-select-5" class="model-select-small" onclick="event.stopPropagation()">
                                 <option value="">Seleccionar modelo 5...</option>
                             </select>
                             <span id="model-status-5" class="model-status">Inactivo</span>
                         </div>
                         <div class="model-controls">
-                            <button class="model-control-btn" onclick="app.copyModelResponse(5)" title="Copiar">
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.copyModelResponse(5)" title="Copiar">
                                 <i class="fas fa-copy"></i>
                             </button>
-                            <button class="model-control-btn" onclick="app.speakModelResponse(5)" title="Leer">
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.speakModelResponse(5)" title="Leer">
                                 <i class="fas fa-volume-up"></i>
                             </button>
-                            <button class="model-control-btn" onclick="app.toggleModel(5)" title="Activar/Desactivar">
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.toggleModel(5)" title="Activar/Desactivar">
                                 <i class="fas fa-power-off"></i>
+                            </button>
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.expandWindow(5)" title="Expandir">
+                                <i class="fas fa-expand"></i>
                             </button>
                         </div>
                     </div>
@@ -326,23 +398,37 @@
                     </div>
                 </div>
 
-                <div class="model-response-window" id="model-window-6">
+                <div class="model-response-window" id="model-window-6" onclick="app.expandWindow(6)">
+                    <div class="expanded-controls">
+                        <button class="expanded-control-btn" onclick="event.stopPropagation(); app.copyModelResponse(6)" title="Copiar">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <button class="expanded-control-btn" onclick="event.stopPropagation(); app.speakModelResponse(6)" title="Leer">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                        <button class="expanded-control-btn close-btn" onclick="event.stopPropagation(); app.closeExpandedWindow()" title="Cerrar">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                     <div class="model-header">
                         <div class="model-info">
-                            <select id="model-select-6" class="model-select-small">
+                            <select id="model-select-6" class="model-select-small" onclick="event.stopPropagation()">
                                 <option value="">Seleccionar modelo 6...</option>
                             </select>
                             <span id="model-status-6" class="model-status">Inactivo</span>
                         </div>
                         <div class="model-controls">
-                            <button class="model-control-btn" onclick="app.copyModelResponse(6)" title="Copiar">
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.copyModelResponse(6)" title="Copiar">
                                 <i class="fas fa-copy"></i>
                             </button>
-                            <button class="model-control-btn" onclick="app.speakModelResponse(6)" title="Leer">
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.speakModelResponse(6)" title="Leer">
                                 <i class="fas fa-volume-up"></i>
                             </button>
-                            <button class="model-control-btn" onclick="app.toggleModel(6)" title="Activar/Desactivar">
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.toggleModel(6)" title="Activar/Desactivar">
                                 <i class="fas fa-power-off"></i>
+                            </button>
+                            <button class="model-control-btn" onclick="event.stopPropagation(); app.expandWindow(6)" title="Expandir">
+                                <i class="fas fa-expand"></i>
                             </button>
                         </div>
                     </div>
@@ -371,8 +457,14 @@
                             rows="3"
                         ></textarea>
                         <div class="input-actions">
+                            <button id="attach-image" class="input-action-btn" title="Adjuntar imagen">
+                                <i class="fas fa-image"></i>
+                            </button>
                             <button id="attach-file" class="input-action-btn" title="Adjuntar archivo">
                                 <i class="fas fa-paperclip"></i>
+                            </button>
+                            <button id="add-link" class="input-action-btn" title="Añadir enlace">
+                                <i class="fas fa-link"></i>
                             </button>
                             <button id="voice-input" class="input-action-btn" title="Entrada de voz">
                                 <i class="fas fa-microphone"></i>
@@ -382,10 +474,24 @@
                             </button>
                         </div>
                     </div>
+                    <!-- Attachments Area -->
+                    <div id="attachments-area" class="attachments-area" style="display: none;">
+                        <div class="attachments-header">
+                            <h4><i class="fas fa-paperclip"></i> Archivos Adjuntos</h4>
+                            <button id="clear-attachments" class="btn btn-sm btn-secondary">
+                                <i class="fas fa-trash"></i> Limpiar
+                            </button>
+                        </div>
+                        <div id="attachments-list" class="attachments-list">
+                            <!-- Attachments will be displayed here -->
+                        </div>
+                    </div>
+                    
                     <div class="input-info">
                         <div class="input-stats">
                             <span id="char-count">0</span> caracteres
                             <span id="word-count">0</span> palabras
+                            <span id="attachment-count">0</span> archivos
                         </div>
                         <div class="input-options">
                             <label class="checkbox-label">
@@ -535,6 +641,24 @@
                             <label for="custom-llm-capabilities">Capacidades (separadas por coma, ej: chat,completion):</label>
                             <input type="text" id="custom-llm-capabilities" class="form-control" value="chat,completion">
                         </div>
+                        <div class="form-group">
+                            <label for="custom-llm-personality">Personalidad de Respuesta (opcional):</label>
+                            <select id="custom-llm-personality" class="form-control">
+                                <option value="">Personalidad por defecto</option>
+                                <option value="pirate">Pirata fiero borracho</option>
+                                <option value="pirate_girl">Chica pirata fiera aventurera pija</option>
+                                <option value="pirate_adventurer">Pirata fiera aventurera pija</option>
+                                <option value="custom">Personalizada...</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="custom-personality-group" style="display: none;">
+                            <label for="custom-llm-custom-personality">Personalidad Personalizada:</label>
+                            <textarea id="custom-llm-custom-personality" class="form-control" rows="3" placeholder="Describe la personalidad que quieres que tenga este modelo al responder..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="custom-llm-website">Sitio Web del Modelo (opcional):</label>
+                            <input type="url" id="custom-llm-website" class="form-control" placeholder="https://ejemplo.com">
+                        </div>
                         <button id="add-custom-llm" class="btn btn-primary"><i class="fas fa-plus"></i> Añadir LLM Personalizado</button>
                     </div>
                 </div>
@@ -566,15 +690,20 @@
         </div>
     </div>
 
+    <!-- Modal Overlay for Expanded Windows -->
+    <div id="modal-overlay" class="modal-overlay" onclick="app.closeExpandedWindow()"></div>
+
     <!-- Notification Container -->
     <div id="notification-container" class="notification-container"></div>
 
     <!-- JavaScript -->
     <script src="assets/js/storage.js"></script>
     <script src="assets/js/llm-providers.js"></script>
+    <script src="assets/js/personality-manager.js"></script>
     <script src="assets/js/audio-manager.js"></script>
     <script src="assets/js/translator.js"></script>
     <script src="assets/js/file-manager.js"></script>
+    <script src="assets/js/attachment-manager.js"></script>
     <script src="assets/js/app.js"></script>
 </body>
 </html>

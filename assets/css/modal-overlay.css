@@ -1,0 +1,138 @@
+/* Modal Overlay for Expanded Windows */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Expanded Window Controls */
+.expanded-controls {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: none;
+    gap: 10px;
+    z-index: 1001;
+}
+
+.model-response-window.expanded .expanded-controls {
+    display: flex;
+}
+
+.expanded-control-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.expanded-control-btn:hover {
+    background: var(--secondary-color);
+    transform: scale(1.1);
+}
+
+.expanded-control-btn.close-btn {
+    background: var(--error-color);
+}
+
+.expanded-control-btn.close-btn:hover {
+    background: #d32f2f;
+}
+
+/* Enhanced Scrollbar for Main Response */
+.main-response {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) var(--background-color);
+}
+
+.main-response::-webkit-scrollbar {
+    width: 8px;
+}
+
+.main-response::-webkit-scrollbar-track {
+    background: var(--background-color);
+    border-radius: 4px;
+}
+
+.main-response::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+.main-response::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+}
+
+/* Mobile Responsive Improvements */
+@media (max-width: 768px) {
+    .model-response-window.expanded {
+        width: 95vw;
+        height: 95vh;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .expanded-controls {
+        top: 5px;
+        right: 5px;
+    }
+    
+    .expanded-control-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+    
+    .model-response {
+        font-size: 0.85rem;
+        padding: 10px;
+    }
+}
+
+/* Touch-friendly improvements for mobile */
+@media (hover: none) and (pointer: coarse) {
+    .model-response-window {
+        cursor: default;
+    }
+    
+    .model-response-window:hover {
+        transform: none;
+    }
+    
+    .expanded-control-btn {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+/* Keyboard navigation support */
+.model-response-window:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.expanded-control-btn:focus {
+    outline: 2px solid white;
+    outline-offset: 2px;
+}

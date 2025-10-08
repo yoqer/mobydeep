@@ -45,6 +45,8 @@ class LLMClient {
             case 'mistral':
             case 'perplexity':
             case 'minimax':
+            case 'amazon':
+            case 'alibaba':
             case 'custom-openai-compatible': // For custom LLMs that follow OpenAI API
                 headers['Authorization'] = `Bearer ${this.apiKey}`;
                 if (this.provider.id === 'minimax') {
@@ -153,6 +155,8 @@ class LLMClient {
                 case 'mistral':
                 case 'perplexity':
                 case 'minimax':
+                case 'amazon':
+                case 'alibaba':
                 case 'custom-openai-compatible':
                 case 'custom-kimi':
                     content = data.choices[0].message.content;
@@ -198,6 +202,11 @@ const MODEL_DEFINITIONS = {
         name: 'OpenAI',
         apiUrl: 'https://api.openai.com/v1',
         models: [
+            { id: 'gpt-5', display_name: 'GPT-5', max_tokens: 4096, context_window: 272000, cost_per_token: 0.00001, capabilities: ['chat', 'vision', 'reasoning'] },
+            { id: 'gpt-4.1', display_name: 'GPT-4.1', max_tokens: 4096, context_window: 1000000, cost_per_token: 0.000008, capabilities: ['chat', 'vision'] },
+            { id: 'o3-pro', display_name: 'OpenAI o3 Pro', max_tokens: 4096, context_window: 200000, cost_per_token: 0.000015, capabilities: ['chat', 'reasoning'] },
+            { id: 'o4-mini', display_name: 'OpenAI o4 Mini', max_tokens: 4096, context_window: 200000, cost_per_token: 0.000002, capabilities: ['chat', 'reasoning'] },
+            { id: 'o3-mini', display_name: 'OpenAI o3 Mini', max_tokens: 4096, context_window: 200000, cost_per_token: 0.000001, capabilities: ['chat', 'reasoning'] },
             { id: 'gpt-4o', display_name: 'GPT-4o', max_tokens: 4096, context_window: 128000, cost_per_token: 0.000005, capabilities: ['chat', 'vision'] },
             { id: 'gpt-4o-mini', display_name: 'GPT-4o Mini', max_tokens: 4096, context_window: 128000, cost_per_token: 0.00000015, capabilities: ['chat', 'vision'] },
             { id: 'gpt-4-turbo', display_name: 'GPT-4 Turbo', max_tokens: 4096, context_window: 128000, cost_per_token: 0.00001, capabilities: ['chat'] },
@@ -209,6 +218,8 @@ const MODEL_DEFINITIONS = {
         name: 'Google Gemini',
         apiUrl: 'https://generativelanguage.googleapis.com/v1beta',
         models: [
+            { id: 'gemini-2.5-pro', display_name: 'Gemini 2.5 Pro', max_tokens: 4096, context_window: 1000000, cost_per_token: 0.000008, capabilities: ['chat', 'vision', 'multimodal'] },
+            { id: 'gemini-2.5-flash', display_name: 'Gemini 2.5 Flash', max_tokens: 4096, context_window: 1000000, cost_per_token: 0.0000004, capabilities: ['chat', 'vision', 'multimodal'] },
             { id: 'gemini-1.5-pro-latest', display_name: 'Gemini 1.5 Pro', max_tokens: 4096, context_window: 1000000, cost_per_token: 0.000007, capabilities: ['chat', 'vision'] },
             { id: 'gemini-1.5-flash-latest', display_name: 'Gemini 1.5 Flash', max_tokens: 4096, context_window: 1000000, cost_per_token: 0.00000035, capabilities: ['chat', 'vision'] },
             { id: 'gemini-pro', display_name: 'Gemini Pro', max_tokens: 2048, context_window: 30720, cost_per_token: 0.0000005, capabilities: ['chat'] },
@@ -218,6 +229,10 @@ const MODEL_DEFINITIONS = {
         name: 'Anthropic Claude',
         apiUrl: 'https://api.anthropic.com/v1',
         models: [
+            { id: 'claude-4-opus', display_name: 'Claude 4 Opus', max_tokens: 4096, context_window: 200000, cost_per_token: 0.000018, capabilities: ['chat', 'vision', 'reasoning'] },
+            { id: 'claude-4-sonnet', display_name: 'Claude 4 Sonnet', max_tokens: 4096, context_window: 200000, cost_per_token: 0.000005, capabilities: ['chat', 'vision', 'coding'] },
+            { id: 'claude-3-5-sonnet-20241022', display_name: 'Claude 3.5 Sonnet (Oct 2024)', max_tokens: 4096, context_window: 200000, cost_per_token: 0.000003, capabilities: ['chat', 'vision'] },
+            { id: 'claude-3-5-haiku-20241022', display_name: 'Claude 3.5 Haiku (Oct 2024)', max_tokens: 4096, context_window: 200000, cost_per_token: 0.0000003, capabilities: ['chat', 'vision'] },
             { id: 'claude-3-5-sonnet-20240620', display_name: 'Claude 3.5 Sonnet', max_tokens: 4096, context_window: 200000, cost_per_token: 0.000003, capabilities: ['chat', 'vision'] },
             { id: 'claude-3-opus-20240229', display_name: 'Claude 3 Opus', max_tokens: 4096, context_window: 200000, cost_per_token: 0.000015, capabilities: ['chat', 'vision'] },
             { id: 'claude-3-haiku-20240307', display_name: 'Claude 3 Haiku', max_tokens: 4096, context_window: 200000, cost_per_token: 0.00000025, capabilities: ['chat', 'vision'] },
@@ -227,6 +242,7 @@ const MODEL_DEFINITIONS = {
         name: 'Deepseek',
         apiUrl: 'https://api.deepseek.com/v1',
         models: [
+            { id: 'deepseek-r1-0528', display_name: 'DeepSeek R1 0528', max_tokens: 4096, context_window: 128000, cost_per_token: 0.0000008, capabilities: ['chat', 'reasoning'] },
             { id: 'deepseek-chat', display_name: 'Deepseek Chat', max_tokens: 4096, context_window: 128000, cost_per_token: 0.000001, capabilities: ['chat'] },
             { id: 'deepseek-coder', display_name: 'Deepseek Coder', max_tokens: 4096, context_window: 16000, cost_per_token: 0.000001, capabilities: ['chat', 'code'] },
         ]
@@ -235,6 +251,10 @@ const MODEL_DEFINITIONS = {
         name: 'Groq',
         apiUrl: 'https://api.groq.com/openai/v1',
         models: [
+            { id: 'llama-4-scout', display_name: 'Llama 4 Scout', max_tokens: 8192, context_window: 10000000, cost_per_token: 0.0000001, capabilities: ['chat', 'long-context'] },
+            { id: 'llama3.1-405b', display_name: 'Llama 3.1 405B', max_tokens: 8192, context_window: 128000, cost_per_token: 0.000001, capabilities: ['chat', 'reasoning'] },
+            { id: 'llama3.1-70b', display_name: 'Llama 3.1 70B', max_tokens: 8192, context_window: 128000, cost_per_token: 0.0000008, capabilities: ['chat'] },
+            { id: 'llama3.1-8b', display_name: 'Llama 3.1 8B', max_tokens: 8192, context_window: 128000, cost_per_token: 0.00000006, capabilities: ['chat'] },
             { id: 'llama3-8b-8192', display_name: 'Llama 3 8B', max_tokens: 8192, context_window: 8192, cost_per_token: 0.00000006, capabilities: ['chat'] },
             { id: 'llama3-70b-8192', display_name: 'Llama 3 70B', max_tokens: 8192, context_window: 8192, cost_per_token: 0.0000007, capabilities: ['chat'] },
             { id: 'mixtral-8x7b-32768', display_name: 'Mixtral 8x7B', max_tokens: 32768, context_window: 32768, cost_per_token: 0.00000027, capabilities: ['chat'] },
@@ -245,6 +265,8 @@ const MODEL_DEFINITIONS = {
         name: 'Grok (X.AI)',
         apiUrl: 'https://api.x.ai/v1',
         models: [
+            { id: 'grok-4', display_name: 'Grok 4', max_tokens: 8192, context_window: 256000, cost_per_token: 0.000001, capabilities: ['chat', 'vision', 'tools', 'search'] },
+            { id: 'grok-3-beta', display_name: 'Grok 3 Beta', max_tokens: 8192, context_window: 128000, cost_per_token: 0.0000008, capabilities: ['chat', 'reasoning'] },
             { id: 'grok-1', display_name: 'Grok-1', max_tokens: 8192, context_window: 8192, cost_per_token: 0.0000005, capabilities: ['chat'] },
         ]
     },
@@ -300,6 +322,26 @@ const MODEL_DEFINITIONS = {
         models: [
             { id: 'MiniMax-M1', display_name: 'MiniMax M1', max_tokens: 8192, context_window: 1000192, cost_per_token: 0.000002, capabilities: ['chat', 'reasoning'] },
             { id: 'MiniMax-Text-01', display_name: 'MiniMax Text 01', max_tokens: 2048, context_window: 1000192, cost_per_token: 0.000001, capabilities: ['chat'] },
+        ]
+    },
+    'amazon': {
+        name: 'Amazon Nova',
+        apiUrl: 'https://api.amazon.com/nova/v1',
+        models: [
+            { id: 'nova-premier', display_name: 'Nova Premier', max_tokens: 4096, context_window: 1000000, cost_per_token: 0.000008, capabilities: ['chat', 'vision', 'multimodal'] },
+            { id: 'nova-pro', display_name: 'Nova Pro', max_tokens: 4096, context_window: 300000, cost_per_token: 0.000004, capabilities: ['chat', 'vision'] },
+            { id: 'nova-lite', display_name: 'Nova Lite', max_tokens: 4096, context_window: 128000, cost_per_token: 0.000001, capabilities: ['chat'] },
+            { id: 'nova-micro', display_name: 'Nova Micro', max_tokens: 2048, context_window: 32000, cost_per_token: 0.0000005, capabilities: ['chat'] },
+        ]
+    },
+    'alibaba': {
+        name: 'Alibaba Qwen',
+        apiUrl: 'https://api.qwen.com/v1',
+        models: [
+            { id: 'qwen3-235b-a22b-thinking-2507', display_name: 'Qwen3 235B A22B Thinking', max_tokens: 4096, context_window: 262000, cost_per_token: 0.000002, capabilities: ['chat', 'reasoning', 'thinking'] },
+            { id: 'qwen2.5-72b', display_name: 'Qwen 2.5 72B', max_tokens: 4096, context_window: 128000, cost_per_token: 0.000001, capabilities: ['chat'] },
+            { id: 'qwen2.5-32b', display_name: 'Qwen 2.5 32B', max_tokens: 4096, context_window: 128000, cost_per_token: 0.0000008, capabilities: ['chat'] },
+            { id: 'qwen2.5-14b', display_name: 'Qwen 2.5 14B', max_tokens: 4096, context_window: 128000, cost_per_token: 0.0000005, capabilities: ['chat'] },
         ]
     },
     // Custom LLMs
