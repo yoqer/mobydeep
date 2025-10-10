@@ -43,7 +43,7 @@ Una plataforma avanzada para integrar múltiples modelos de lenguaje (LLM) con f
 2. Ve a Settings > Pages
 3. Selecciona "Deploy from a branch"
 4. Elige "main" branch y "/ (root)"
-5. ¡Listo! Tu aplicación estará disponible en `https://tu-usuario.github.io/Mobydeep`
+5. ¡Listo! Tu aplicación estará disponible en `https://yoqer.github.io/mobydeep`
 
 ### Uso Local
 1. Descarga o clona el repositorio
